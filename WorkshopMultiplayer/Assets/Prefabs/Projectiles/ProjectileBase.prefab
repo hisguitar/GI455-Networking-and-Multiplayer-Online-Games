@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1679814832971309512}
   - component: {fileID: 1503907058567984866}
   - component: {fileID: 3246817099833093414}
+  - component: {fileID: 7482279807897582676}
   m_Layer: 6
   m_Name: ProjectileBase
   m_TagString: Untagged
@@ -123,3 +124,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifetime: 2
+--- !u!114 &7482279807897582676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7515828341767932432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adea52b0da3405348b4182aa000feeb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 5
