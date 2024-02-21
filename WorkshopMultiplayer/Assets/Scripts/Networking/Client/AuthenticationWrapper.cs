@@ -52,14 +52,14 @@ public static class AuthenticationWrapper
                 }
             }
             // Catch 2 types of errors
-            catch (AuthenticationException ex)
+            catch (AuthenticationException authException)
             {
-                Debug.LogError(ex);
+                Debug.LogError(authException);
                 AuthState = AuthState.Error;
             }
-            catch (RequestFailedException exeption)
+            catch (RequestFailedException requestExeption)
             {
-                Debug.Log(exeption);
+                Debug.Log(requestExeption);
                 AuthState = AuthState.Error;
             }
 
