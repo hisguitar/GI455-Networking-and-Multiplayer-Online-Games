@@ -335,7 +335,7 @@ GameObject:
   - component: {fileID: 3568525006383978184}
   - component: {fileID: 1304728067447937439}
   - component: {fileID: 1690427080562615906}
-  - component: {fileID: 3916419992251425990}
+  - component: {fileID: 3304630294694500814}
   m_Layer: 0
   m_Name: TankTreads
   m_TagString: Untagged
@@ -459,7 +459,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.765625, y: 2.0546875}
   m_EdgeRadius: 0
---- !u!114 &3916419992251425990
+--- !u!114 &3304630294694500814
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -529,7 +529,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3601728101093820366}
-  - component: {fileID: 440345189640170}
+  - component: {fileID: 6304588316829862163}
   m_Layer: 0
   m_Name: TurretPivot
   m_TagString: Untagged
@@ -553,7 +553,7 @@ Transform:
   - {fileID: 4887476843928260684}
   m_Father: {fileID: 5391588333895522255}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &440345189640170
+--- !u!114 &6304588316829862163
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
