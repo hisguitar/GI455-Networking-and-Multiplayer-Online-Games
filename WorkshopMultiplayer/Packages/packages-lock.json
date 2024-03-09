@@ -196,14 +196,14 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.netcode.gameobjects": {
-      "version": "1.7.1",
+      "version": "https://github.com/Unity-Technologies/com.unity.netcode.gameobjects.git?path=com.unity.netcode.gameobjects#develop",
       "depth": 0,
-      "source": "registry",
+      "source": "git",
       "dependencies": {
         "com.unity.nuget.mono-cecil": "1.10.1",
         "com.unity.transport": "1.4.0"
       },
-      "url": "https://packages.unity.com"
+      "hash": "c013f64104a9b02430e4679ff01a282a835d2913"
     },
     "com.unity.nuget.mono-cecil": {
       "version": "1.11.4",
