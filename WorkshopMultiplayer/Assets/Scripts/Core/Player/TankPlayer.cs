@@ -8,6 +8,7 @@ public class TankPlayer : NetworkBehaviour
 {
     [Header("References")]
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
+    [SerializeField] private Texture2D crosshair;
     [field: SerializeField] public Health Health { get; private set; }
 
     [Header("Settings")]
@@ -32,9 +33,13 @@ public class TankPlayer : NetworkBehaviour
             OnPlayerSpawned?.Invoke(this);
         }
 
+        // The following code will only affect the owner.
         if (IsOwner)
         {
             virtualCamera.Priority = ownerPriority;
+
+            // You will see cursor that you put in the 'crosshair' variable.
+            Cursor.SetCursor(crosshair, new Vector2(crosshair.width/2, crosshair.height/2), CursorMode.Auto);
         }
     }
 
