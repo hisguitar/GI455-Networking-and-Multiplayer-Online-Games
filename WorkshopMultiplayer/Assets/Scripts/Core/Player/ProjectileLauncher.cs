@@ -1,5 +1,6 @@
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class ProjectileLauncher : NetworkBehaviour
 {
@@ -18,6 +19,7 @@ public class ProjectileLauncher : NetworkBehaviour
     [SerializeField] private float muzzleFlashDuration;
     [SerializeField] private int costToFire;
 
+    private bool isPointerOverUI;
     private bool shouldFire;
     private float muzzleFlashTimer;
     private float timer;
@@ -36,6 +38,10 @@ public class ProjectileLauncher : NetworkBehaviour
 
     private void HandlePrimaryFire(bool shouldFire)
     {
+        if (shouldFire)
+        {
+            if (isPointerOverUI) { return; }
+        }
         this.shouldFire = shouldFire;
     }
 
@@ -52,6 +58,8 @@ public class ProjectileLauncher : NetworkBehaviour
         }
 
         if (!IsOwner) { return; }
+        isPointerOverUI = EventSystem.current.IsPointerOverGameObject();
+
         if (timer > 0)
         {
             timer -= Time.deltaTime;
@@ -71,7 +79,7 @@ public class ProjectileLauncher : NetworkBehaviour
     private void PrimaryFireServerRpc(Vector3 spawnPos, Vector3 direction)
     {
         if (wallet.TotalCoins.Value < costToFire) { return; }
-        wallet.SpendCoins(costToFire);
+        wallet.SpendCoin(costToFire);
 
         GameObject projectileInstance = Instantiate(
             serverProjectilePrefab,

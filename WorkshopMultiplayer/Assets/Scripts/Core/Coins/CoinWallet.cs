@@ -20,7 +20,7 @@ public class CoinWallet : NetworkBehaviour
 
     public NetworkVariable<int> TotalCoins = new NetworkVariable<int>();
 
-    internal void SpendCoins(int costToFire)
+    internal void SpendCoin(int costToFire)
     {
         TotalCoins.Value -= costToFire;
     }

@@ -17,7 +17,7 @@ using UnityEngine.SceneManagement;
 public class HostGameManager : IDisposable
 {
     private Allocation allocation;
-    private string joinCode;
+    public string JoinCode { private set; get; }
     private string lobbyId;
 
     public NetworkServer NetworkServer { get; private set; }
@@ -39,8 +39,8 @@ public class HostGameManager : IDisposable
 
         try
         {
-            joinCode = await Relay.Instance.GetJoinCodeAsync(allocation.AllocationId);
-            Debug.Log(joinCode);
+            JoinCode = await Relay.Instance.GetJoinCodeAsync(allocation.AllocationId);
+            Debug.Log(JoinCode);
         }
         catch(Exception e)
         {
@@ -62,7 +62,7 @@ public class HostGameManager : IDisposable
                 {
                     "JoinCode", new DataObject(
                         visibility: DataObject.VisibilityOptions.Member,
-                        value: joinCode)
+                        value: JoinCode)
                 }
             };
             string playerName = PlayerPrefs.GetString(NameSelector.PlayerNameKey, "Unknown");
@@ -92,6 +92,9 @@ public class HostGameManager : IDisposable
         NetworkManager.Singleton.NetworkConfig.ConnectionData = payloadBytes;
 
         NetworkManager.Singleton.StartHost();
+
+        NetworkServer.OnClientLeft += HandleClientLeft;
+
         NetworkManager.Singleton.SceneManager.LoadScene(GameSceneName, LoadSceneMode.Single);
     }
 
@@ -107,15 +110,20 @@ public class HostGameManager : IDisposable
 
     public async void Dispose()
     {
+        Shutdown();
+    }
+
+    public async void Shutdown()
+    {
         HostSingleton.Instance.StopCoroutine(nameof(HeartbeatLobby));
 
-        if(!string.IsNullOrEmpty(lobbyId))
+        if (!string.IsNullOrEmpty(lobbyId))
         {
             try
             {
                 await Lobbies.Instance.DeleteLobbyAsync(lobbyId);
             }
-            catch(LobbyServiceException e)
+            catch (LobbyServiceException e)
             {
                 Debug.Log(e);
             }
@@ -123,6 +131,20 @@ public class HostGameManager : IDisposable
             lobbyId = string.Empty;
         }
 
+        NetworkServer.OnClientLeft -= HandleClientLeft;
+
         NetworkServer?.Dispose();
+    }
+
+    private async void HandleClientLeft(string authId)
+    {
+        try
+        {
+            await LobbyService.Instance.RemovePlayerAsync(lobbyId, authId);
+        }
+        catch (LobbyServiceException e)
+        {
+            Debug.Log(e);
+        }
     }
 }
