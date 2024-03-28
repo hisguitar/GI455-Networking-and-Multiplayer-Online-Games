@@ -8,14 +8,13 @@ public class GameHUD : MonoBehaviour
 
     private void Start()
     {
-        if (HostSingleton.Instance)
-        {
-            joinCodeText.text = "Code\n" + HostSingleton.Instance.GameManager.JoinCode;
-        }
+        joinCodeText.text = "Code\n" + PlayerPrefs.GetString("JoinCode");
     }
 
     public void LeaveGame()
     {
+        PlayerPrefs.DeleteKey("JoinCode");
+
         if (NetworkManager.Singleton.IsHost)
         {
             HostSingleton.Instance.GameManager.Shutdown();

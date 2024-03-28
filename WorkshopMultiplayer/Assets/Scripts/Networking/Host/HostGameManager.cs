@@ -17,7 +17,7 @@ using UnityEngine.SceneManagement;
 public class HostGameManager : IDisposable
 {
     private Allocation allocation;
-    public string JoinCode { private set; get; }
+    private string JoinCode;
     private string lobbyId;
 
     public NetworkServer NetworkServer { get; private set; }
@@ -41,8 +41,9 @@ public class HostGameManager : IDisposable
         {
             JoinCode = await Relay.Instance.GetJoinCodeAsync(allocation.AllocationId);
             Debug.Log(JoinCode);
+            PlayerPrefs.SetString("JoinCode", JoinCode);
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             Debug.Log(e);
             return;
